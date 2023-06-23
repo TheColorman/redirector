@@ -7,7 +7,13 @@
         "url": "https://github.com/TheColorman/redirector"
     },
     "license": "GNU GPLv3",
-    "scripts": {},
+    "scripts": {
+        "start": "node ./dist/app.js",
+        "build": "tsc",
+        "dev": "tsc -w",
+        "debug": "nodemon ./dist/app.js",
+        "run": "npm run build && npm run start"
+    },
     "dependencies": {
         "better-sqlite3": "^8.4.0",
         "express": "^4.18.2"
