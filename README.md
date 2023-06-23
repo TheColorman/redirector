@@ -6,7 +6,7 @@ Redirector is a nodejs, express microservice with two simple features:
 It has the following endpoints:  
 - `GET /routes`: Returns a json formatted list of routes in the database.  
 - `GET /*`: Tries to find a matching path in the database and redirects to its specified target.  
-- `POST /`: Takes a json object in the form
+- `POST /`: Takes a json body in the form
   ```json
   {
       "path": "example",
@@ -14,7 +14,7 @@ It has the following endpoints:
   }
   ```
   which sets up or updates a route from `/example` to `https://example.com`.
-- `DELETE /`: Takes a json object in the form
+- `DELETE /`: Takes a json body in the form
   ```json
   {
       "path": "example"
