@@ -22,4 +22,4 @@ It has the following endpoints:
   ```
   which deletes a route from `/example`.  
   
-All routes except `GET /*` requrie authorization via bearer token, stored as an array of strings in `tokens.json`.
+All routes except `GET /*` require authorization via bearer token, stored as an array of strings in `tokens.json`.
