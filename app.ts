@@ -74,6 +74,7 @@ function json(req: Request, res: Response, next: NextFunction) {
 
 app.get("/routes", checkToken, (req, res) => {
   const routes = db.prepare("SELECT * FROM routes").all()
+  console.log("Loaded routes")
   res.json(routes)
 })
 
@@ -81,23 +82,21 @@ app.get("/*", (req, res) => {
   const path = req.path.slice(1)
   const route = getRoute(path)
 
+  console.log(`Redirecting ${path} to ${route?.target}`)
+
   route ? res.redirect(route.target) : res.status(404).send("Not Found")
 })
 
 app.post("/", json, checkToken, (req, res) => {
-  try {
-    const { path, target } = req.body
-    if (typeof path !== "string" || typeof target !== "string") {
-      res.status(400).send("Bad Request")
-      return
-    }
-
-    setRoute(path, target)
-    res.status(201).send("Created")
-  } catch (e) {
-    console.log(e)
-    res.status(500).send("Internal Server Error")
+  const { path, target } = req.body
+  if (typeof path !== "string" || typeof target !== "string") {
+    res.status(400).send("Bad Request")
+    return
   }
+
+  setRoute(path, target)
+  console.log(`Created route ${path} -> ${target}`)
+  res.status(201).send("Created")
 })
 
 app.delete("/", json, checkToken, (req, res) => {
@@ -109,6 +108,7 @@ app.delete("/", json, checkToken, (req, res) => {
   }
 
   delRoute(path)
+  console.log(`Deleted route ${path}`);
   res.status(200).send("OK")
 })
 
