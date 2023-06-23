@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  node:
+    build: .
+    container_name: redirector
+    working_dir: /app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    security_opt:
+      - seccomp:unconfined
+    command: npm run run
+    restart: unless-stopped
+    # Reverse proxy setup, optional. See https://docs.linuxserver.io/general/swag
+    labels:
+      - swag=enable
+      - swag_port=3000
+      - swag_url=re.colorman.me # Change me
+    # ports: # Use if not using reverse proxy
+    #   - 3000:3000 
+
+# Reverse proxy network
+networks:
+  default:
+    name: swag
+    external: true
