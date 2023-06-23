@@ -1,4 +1,5 @@
 import express, { NextFunction, Request, Response } from "express"
+import cors from "cors"
 import Database from "better-sqlite3"
 import type { Route } from "./types"
 import tokens from "./tokens.json"
@@ -33,6 +34,7 @@ function delRoute(path: string) {
 }
 
 const app = express()
+app.use(cors())
 
 function checkToken(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization
