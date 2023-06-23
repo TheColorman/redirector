@@ -131,3 +131,6 @@ dist
 
 # Database
 *.sqlite3*
+
+# Tokens
+tokens.json
